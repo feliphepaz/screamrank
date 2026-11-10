@@ -1,26 +1,282 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ==========================================================================
+   SCREAMRANK — DESIGN SYSTEM
+
+   1. Cores
+   2. Tipografia     (famílias e escala)
+   3. Espaçamento, raios, sombras e layout
+   4. Base
+   5. Componentes    (botão, cartão, tag, eyebrow, nota)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CORES
+   O ScreamRank tem somente tema escuro. Cada token vira utilitário
+   (bg-background, text-foreground, border-border...).
+   -------------------------------------------------------------------------- */
+@theme {
+  /* Remove a paleta padrão do Tailwind: só tokens do ScreamRank são válidos */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+
+  /* Superfícies e texto */
+  --color-background: #0d0b0f; /* fundo-breu */
+  --color-surface: #17141b; /* superficie-cripta */
+  --color-surface-raised: #221e28; /* superficie-jazigo */
+  --color-border: #342f3c; /* linha-nevoa */
+  --color-foreground: #f1ebdf; /* texto-osso */
+  --color-muted: #a8a2b1; /* texto-fumaca */
+  --color-gold: #f2b544; /* dourado-xp — XP, nível e notas */
+  --color-header: #0d0b0ff2; /* fundo translúcido do cabeçalho fixo */
+
+  /* Marca */
+  --color-primary: #e8263d; /* vermelho-grito — marca e ação principal */
+  --color-primary-dark: #9d1427; /* vermelho-sangue-seco — base do botão */
+
+  --color-hero: #12090d; /* hero-vinho */
+  --color-hero-glow: #5e0c1a; /* hero-brilho */
+  --color-hero-border: #3a1721; /* borda do painel de destaque (protótipo) */
+  --color-hero-foreground: #f4eee2; /* hero-osso */
+  --color-hero-muted: #bdb4c0; /* hero-fumaca */
+
+  /* Classes de terror */
+  --color-class-blade: #ee4458; /* Lâmina Final — Slasher */
+  --color-class-veil: #7d9dfa; /* Véu Rasgado — Sobrenatural */
+  --color-class-flesh: #ff8350; /* Carne em Fuga — Body Horror */
+  --color-class-mind: #36d6c2; /* Mente Fraturada — Psicológico */
+  --color-class-tape: #a6e633; /* Olho da Fita — Found Footage */
+  --color-class-cult: #b184f2; /* Filho do Culto — Folk & Cósmico */
+  --color-class-immune: #d9c64d; /* Último Imune — Zumbi */
+  --color-class-void: #f06eb6; /* Caçador do Vazio — Monstros */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* ------------------------------------------------------------------------
+     2. TIPOGRAFIA — famílias
+     As variáveis --font-* vêm do next/font, aplicadas no <html> (layout.tsx).
+     ------------------------------------------------------------------------ */
+  --font-display: var(--font-big-shoulders), Impact, "Arial Narrow", sans-serif;
+  --font-sans: var(--font-hanken-grotesk), system-ui, Arial, sans-serif;
+
+  /* ------------------------------------------------------------------------
+     2. TIPOGRAFIA — escala (uso: text-display-page, text-body...)
+     Tamanho, altura de linha e peso já vêm juntos em cada token.
+     ------------------------------------------------------------------------ */
+
+  /* Big Shoulders Display — sempre em caixa alta (use com `heading`) */
+  --text-display-page: 2.125rem; /* display-pagina · 34px no celular, 58px a partir de md (ver BASE), h1 */
+  --text-display-page--line-height: 0.95;
+  --text-display-page--font-weight: 900;
+
+  --text-display-imdb: 2.875rem; /* display-nota-imdb · 46px */
+  --text-display-imdb--line-height: 1;
+  --text-display-imdb--font-weight: 900;
+
+  --text-display-level: 2rem; /* display-nivel · 32px — Nv. 14, posição no ranking */
+  --text-display-level--line-height: 1;
+  --text-display-level--font-weight: 900;
+
+  --text-display-summary: 1.875rem; /* display-resumo · 30px */
+  --text-display-summary--line-height: 1.1;
+  --text-display-summary--font-weight: 900;
+
+  --text-display-logo: 1.625rem; /* display-logo · 26px */
+  --text-display-logo--line-height: 1;
+  --text-display-logo--font-weight: 900;
+
+  --text-display-section: 1.5rem; /* display-secao · 24px, h2 */
+  --text-display-section--line-height: 0.95;
+  --text-display-section--font-weight: 900;
+
+  --text-display-poster: 1.5rem; /* display-poster · 24px — cartaz sem capa */
+  --text-display-poster--line-height: 0.92;
+  --text-display-poster--font-weight: 900;
+
+  --text-display-xp: 1.375rem; /* display-xp · 22px — +100 XP */
+  --text-display-xp--line-height: 1;
+  --text-display-xp--font-weight: 900;
+
+  --text-display-card: 1.375rem; /* display-card · 22px, h3 (21px no DS original) */
+  --text-display-card--line-height: 0.95;
+  --text-display-card--font-weight: 900;
+
+  --text-eyebrow: 0.75rem; /* rotulo-destaque · 12px — FILME DA SEMANA */
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.16em;
+  --text-eyebrow--font-weight: 800;
+
+  /* Hanken Grotesk */
+  --text-mission-title: 1.125rem; /* titulo-missao · 18px */
+  --text-mission-title--line-height: 1.3;
+  --text-mission-title--font-weight: 700;
+
+  --text-body: 0.875rem; /* corpo · 14px */
+  --text-body--line-height: 1.55;
+
+  --text-avatar: 0.875rem; /* corpo · 14px */
+  --text-avatar--line-height: 1.55;
+  --text-avatar--font-weight: 600;
+
+  --text-button: 0.875rem; /* botao · 14px */
+  --text-button--line-height: 1.25rem;
+  --text-button--font-weight: 700;
+
+  --text-nav: 0.875rem; /* nav · 14px */
+  --text-nav--line-height: 1.25rem;
+  --text-nav--font-weight: 500;
+
+  --text-poster-title: 0.875rem; /* titulo-capa · 14px */
+  --text-poster-title--line-height: 1.3;
+  --text-poster-title--font-weight: 600;
+
+  --text-field: 0.875rem; /* campo · 14px */
+  --text-field--line-height: 1.25rem;
+  --text-field--font-weight: 500;
+
+  --text-caption: 0.75rem; /* legenda · 12px */
+  --text-caption--line-height: 1.5;
+
+  --text-tag: 0.75rem; /* tag · 12px */
+  --text-tag--line-height: 1.5;
+  --text-tag--font-weight: 600;
+
+  /* ------------------------------------------------------------------------
+     3. ESPAÇAMENTO
+     Base de 4px. A escala do DS (4, 8, 12, 16, 20, 24, 32, 40px) corresponde
+     a 1, 2, 3, 4, 5, 6, 8, 10 → p-5 = 20px, gap-10 = 40px.
+     ------------------------------------------------------------------------ */
+  --spacing: 0.25rem;
+
+  /* RAIOS (rounded-button, rounded-card...). Círculo → rounded-full */
+  --radius-button: 4px; /* raio-botao */
+  --radius-tag: 5px; /* raio-tag */
+  --radius-poster: 6px; /* raio-poster */
+  --radius-field: 8px; /* raio-campo */
+  --radius-card: 10px; /* raio-card */
+  --radius-featured: 14px; /* raio-destaque */
+  --radius-pill: 20px; /* raio-pilula */
+
+  /* SOMBRAS */
+  --shadow-button: 0 3px 0 var(--color-primary-dark);
+  --shadow-button-hover: 0 4px 0 var(--color-primary-dark);
+  --shadow-button-active: 0 1px 0 var(--color-primary-dark);
+  --shadow-poster: 0 22px 44px rgb(0 0 0 / 0.67);
+
+  /* LAYOUT */
+  --container-page: 1200px; /* max-w-page */
+  --container-reading: 80ch; /* linhas de até 80 caracteres */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* --------------------------------------------------------------------------
+   4. BASE
+   -------------------------------------------------------------------------- */
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+
+  html {
+    box-sizing: border-box;
+  }
+
+  /* display-page: 34px no celular, 58px a partir de md */
+  @media (width >= 48rem) {
+    :root {
+      --text-display-page: 3.625rem;
+    }
+  }
+
+  body {
+    @apply bg-background font-sans text-body text-foreground;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold;
+  }
+
+  ::placeholder {
+    color: var(--color-muted);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* --------------------------------------------------------------------------
+   5. COMPONENTES
+   -------------------------------------------------------------------------- */
+
+/* Container das páginas: 1200px, respiro lateral de 20px */
+@utility page-container {
+  @apply mx-auto w-full max-w-page px-5;
+}
+
+/* Título em Big Shoulders: caixa alta, 900. Combine com um text-display-*,
+   que traz o tamanho e a altura de linha de cada estilo. */
+@utility heading {
+  @apply m-0 font-display font-black uppercase;
+}
+
+/* Define a cor de classe usada por tag, ícone e barra: tone-class-veil */
+@utility tone-* {
+  --tone: --value(--color-*);
+}
+
+/* Botão primário: vermelho-grito com base de sangue seco que afunda */
+@utility btn {
+  @apply inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-button border-0 bg-primary px-[18px] text-button text-white shadow-button;
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s,
+    background 0.12s;
+
+  &:active {
+    @apply translate-y-0.5 shadow-button-active;
+  }
+}
+
+/* Botão secundário: usar junto com `btn` → class="btn btn-secondary" */
+@utility btn-secondary {
+  @apply border-[1.5px] bg-transparent text-hero-foreground border-white/30 shadow-none;
+
+  &:hover {
+    @apply bg-surface-raised shadow-none;
+  }
+}
+
+/* Cartão / painel */
+@utility card {
+  @apply rounded-card border border-border bg-surface p-5;
+}
+
+/* Avatar com a cor da classe: class="avatar tone-class-blade" */
+@utility avatar {
+  color: color-mix(in srgb, var(--tone) 20%, var(--color-foreground));
+}
+
+/* Etiqueta de classe/subgênero: class="tag tone-class-veil" */
+@utility tag {
+  @apply inline-block rounded-tag px-2 py-0.5 text-tag;
+  color: color-mix(in srgb, var(--tone) 75%, var(--color-foreground));
+  background: color-mix(in srgb, var(--tone) 18%, transparent);
+}
+
+/* Rótulo de destaque (FILME DA SEMANA) */
+@utility eyebrow {
+  @apply font-display text-eyebrow text-gold uppercase;
+}
+
+/* Nota do usuário (0–5, uma casa, "/5"), sempre em dourado */
+@utility rating {
+  @apply font-display text-display-level text-gold;
+
+  & small {
+    @apply ml-px font-sans text-sm font-semibold text-muted;
+  }
 }
