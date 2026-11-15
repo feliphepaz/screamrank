@@ -7,7 +7,7 @@
    2. Tipografia     (famílias e escala)
    3. Espaçamento, raios, sombras e layout
    4. Base
-   5. Componentes    (botão, cartão, tag, eyebrow, nota)
+   5. Componentes    (botão, cartão, tag, highlight, nota)
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -102,10 +102,10 @@
   --text-display-card--line-height: 0.95;
   --text-display-card--font-weight: 900;
 
-  --text-eyebrow: 0.75rem; /* rotulo-destaque · 12px — FILME DA SEMANA */
-  --text-eyebrow--line-height: 1;
-  --text-eyebrow--letter-spacing: 0.16em;
-  --text-eyebrow--font-weight: 800;
+  --text-highlight: 0.75rem; /* rotulo-destaque · 12px — FILME DA SEMANA */
+  --text-highlight--line-height: 1;
+  --text-highlight--letter-spacing: 0.16em;
+  --text-highlight--font-weight: 800;
 
   /* Hanken Grotesk */
   --text-mission-title: 1.125rem; /* titulo-missao · 18px */
@@ -163,6 +163,7 @@
   --shadow-button-hover: 0 4px 0 var(--color-primary-dark);
   --shadow-button-active: 0 1px 0 var(--color-primary-dark);
   --shadow-poster: 0 22px 44px rgb(0 0 0 / 0.67);
+  --shadow-poster-hero: 0 26px 50px rgb(0 0 0 / 0.67);
 
   /* LAYOUT */
   --container-page: 1200px; /* max-w-page */
@@ -267,9 +268,9 @@
   background: color-mix(in srgb, var(--tone) 18%, transparent);
 }
 
-/* Rótulo de destaque (FILME DA SEMANA) */
-@utility eyebrow {
-  @apply font-display text-eyebrow text-gold uppercase;
+/* Rótulo de destaque */
+@utility highlight {
+  @apply font-display text-highlight text-gold uppercase;
 }
 
 /* Nota do usuário (0–5, uma casa, "/5"), sempre em dourado */

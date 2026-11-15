@@ -25,7 +25,7 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 w-full z-10 py-3 bg-header border-b border-border">
-        <div className="md:gap-4 page-container flex gap-3 items-center">
+        <div className="md:gap-4.5 page-container flex gap-3 items-center">
           <Link href="/" className="flex items-center">
             <Logo className="heading text-display-logo">
               Scream<span className="text-primary">Rank</span>
